@@ -7,12 +7,12 @@
 </head>
 <body>
     <div id="wrapper">
-        <form id="login">
+        <form>
             <div class="d-label">
                 Usuário
             </div>
             <div class="d-input">
-                <input type="text" id="user">
+                <input type="text" id="username">
             </div>
             <div class="d-label">
                 Senha
@@ -21,9 +21,10 @@
                 <input type="password" id="password">
             </div>
             <div class="d-button">
-                <button>Login</button>
+                <button id="login">Login</button>
             </div>
         </form>
     </div>
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 </body>
 </html>
