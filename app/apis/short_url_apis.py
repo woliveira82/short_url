@@ -12,9 +12,10 @@ from webargs.flaskparser import parser
 def post_short_url():
     json = parser.parse({
         'original_url': fields.Str(required=True),
-        'shorted_key': fields.Str(required=False, missing=token_urlsafe(4)),
+        'shorted_key': fields.Str(required=False, missing=(token_urlsafe(4))),
         'expires_at': fields.DateTime(required=False, missing=(datetime.now() + timedelta(days=7))),
     }, request)
+    json['shorted_key'] = app.config['DOMAIN_BASE_URL'] + json['shorted_key']
     shorted_url = ShortUrl(**json)
     shorted_url.save()
     return jsonify(shorted_url.to_json())
