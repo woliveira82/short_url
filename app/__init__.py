@@ -8,3 +8,4 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 from app.apis import *
+from app.view import *
