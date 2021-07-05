@@ -1,4 +1,4 @@
-from app import db
+from app import app, db
 
 
 class BaseModel(db.Model):
@@ -28,7 +28,7 @@ class ShortUrl(BaseModel):
     def to_json(self):
         return {
             'original_url': self.original_url,
-            'shorted_key': self.shorted_key,
+            'shorted_key': app.config['DOMAIN_BASE_URL'] + self.shorted_key,
             'expires_at': self.expires_at,
         }
 

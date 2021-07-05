@@ -25,7 +25,7 @@ window.addEventListener('load', () => {
                 alert('Usuário ou senha incorretos!')
             }
         }).then(json => {
-            storage.setItem('access_token', `Bearer ${json.access_token}`);
+            storage.setItem('jwt', json.access_token);
             window.location.replace('/url-list');
         }).catch(error => {
             console.error('Error:', error);
