@@ -18,7 +18,7 @@ def post_short_url():
     }, request)
     shorted_url = ShortUrl(**json)
     shorted_url.save()
-    return jsonify(shorted_url.to_json())
+    return jsonify(shorted_url.to_json()), 201
     
 
 @app.route('/<shorted_key>', methods=['GET'])
@@ -31,7 +31,7 @@ def get_short_key(shorted_key):
 
 
 @app.route('/short-urls', methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def get_short_url():
     query = parser.parse({
         'page': fields.Int(required=False, missing=1),
