@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from secrets import token_urlsafe
 
-from app import app
+from app import app, db
 from app.models import ShortUrl
 from flask import abort, jsonify, redirect, request
 from flask_jwt_extended import jwt_required
@@ -23,8 +23,9 @@ def post_short_url():
 
 @app.route('/<shorted_key>', methods=['GET'])
 def get_short_key(shorted_key):
-    shorted_url = ShortUrl.query.filter_by(shorted_key=shorted_key).first()
-    if not shorted_url:
+    shorted_url = ShortUrl.query.filter_by(shorted_key=shorted_key).first_or_404()
+    if shorted_url.expires_at < datetime.now():
+        shorted_url.delete()
         abort(404)
     
     return redirect(shorted_url.original_url, code=302)
@@ -37,6 +38,8 @@ def get_short_url():
         'page': fields.Int(required=False, missing=1),
         'per_page': fields.Int(required=False, missing=20),
     }, request, location='query')
+    a = ShortUrl.query.filter(ShortUrl.expires_at < datetime.now()).delete()
+    db.session.commit()
     page_list = ShortUrl.query.paginate(query['page'], query['per_page'], error_out=False)
     json_response = {
         'has_next': page_list.has_next,
