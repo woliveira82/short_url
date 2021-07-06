@@ -19,7 +19,7 @@ Se preferir instalar as dependências em um ambiente virtual para proteger seu s
 ```bash
 $ python3 -m venv venv
 ```
-Esse comando vai utilizar o módulo `venv` do Python para criar um diretório que permite iniciar um ambiênte seguro para o desenvolvimento.
+Esse comando vai utilizar o módulo __venv__ do Python para criar um diretório que permite iniciar um ambiênte seguro para o desenvolvimento.
 
 Ative o ambiente e instale os requisitos como abaixo:
 ```bash
@@ -32,7 +32,7 @@ $ source venv/bin/activate
 ### 1.3 Banco de Dados
 O sistema utilza o banco de dados MySQL/MariaDB. Crie um banco de dados para a utilização do sistema.
 
-Para configurar o acesso do sistema ao banco é necessário alterar o arquivo `config.py`. No exemplo abaixo o banco será acessado com o usuário `username` e com a senha `password`, modifique esses valores para ambientes de produção. 
+Para configurar o acesso do sistema ao banco é necessário alterar o arquivo `config.py`. No exemplo abaixo o banco será acessado com o usuário __username__ e com a senha __password__, modifique esses valores para ambientes de produção. 
 
 ```python
 ENV = 'production'
@@ -43,9 +43,9 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 DOMAIN_BASE_URL = 'http://dns.io/'
 JWT_SECRET_KEY = 'change-this-key'
 ```
-Como indicado, o banco está foi configurado para funcionar no mesmo servidor (`localhost`) que o sistema e com o nome de `db_name`. Modifique esses valores com o endereço e o nome do banco, respectivamente, para os valores utilizados por você.
+Como indicado, o banco está foi configurado para funcionar no mesmo servidor (__localhost__) que o sistema e com o nome de `db_name`. Modifique esses valores com o endereço e o nome do banco, respectivamente, para os valores utilizados por você.
 
-Se quiser utilizar o sistema em modo `debug` você pode criar um outro arquivo `config.py` e colocá-lo em uma pasta chamada `instance` na raiz da aplicação. O sistema vai identificar o arquivo de configuração e utilizá-lo preferencialmente. Segue abaixo uma sugestão do arquivo `config.py` para o modo de desenvolvimento ou `debug`. Note que você deve modificar as credenciais de acesso ao banco da mesma maneira que descrito acima.
+Se quiser utilizar o sistema em modo __debug__ você pode criar um outro arquivo `config.py` e colocá-lo em uma pasta chamada `instance` na raiz da aplicação. O sistema vai identificar o arquivo de configuração e utilizá-lo preferencialmente. Segue abaixo uma sugestão do arquivo `config.py` para o modo de desenvolvimento ou __debug__. Note que você deve modificar as credenciais de acesso ao banco da mesma maneira que descrito acima.
 ```python
 ENV = 'develop'
 DEBUG = True
@@ -72,12 +72,12 @@ Para iniciar a aplicação é necessário executar o arquivo `run.py` que vai in
  * Debugger is active!
  * Debugger PIN: 123-456-789
 ```
-Neste exemplo a aplicação está funcionando com o arquivo de configuração de `debug`, assim as rotas e as telas já estão acessíveis como um serviço local.
+Neste exemplo a aplicação está funcionando com o arquivo de configuração de __debug__, assim as rotas e as telas já estão acessíveis como um serviço local.
 
 ## 2. Utilização
 ### 2.1 Criação e leitura de URLs encurtadas
 #### POST `/short-urls`
-Para criar uma url encurtada é utilizado a rota `/short-urls` com o método `POST` e os seguintes parâmetros enviados como JSON:
+Para criar uma url encurtada é utilizado a rota `/short-urls` com o método __POST__ e os seguintes parâmetros enviados como JSON:
 | Parâmetro     | Tipo      | Obrigatório | Valor padrão        |
 |---------------|-----------|-------------|---------------------|
 | original_url  | string    | sim         | -                   |
@@ -92,4 +92,10 @@ Para acessar uma URL encurtada a aplicação deve ser acionada na rota raiz segu
 Essa rota retorna uma lista de URLs encurtadas juntamente com os valores de paginação.
 
 ### 2.2 Testando a aplicação
-**TODO**
+Os testes da aplicação são realizados com a utilização da biblioteca **[pytest](https://docs.pytest.org/)**. Para executar os testes é necessário ativar o ambiente virtual e executar o comando `pytest` na raiz da aplicação:
+```bash
+# Ativando o ambiente virtual 
+$ source venv/bin/activate
+# Instalando os requisitos dentro do ambiente
+(venv) $ pytest
+```
