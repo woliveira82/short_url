@@ -78,11 +78,13 @@ Neste exemplo a aplicação está funcionando com o arquivo de configuração de
 ### 2.1 Criação e leitura de URLs encurtadas
 #### POST `/short-urls`
 Para criar uma url encurtada é utilizado a rota `/short-urls` com o método *POST* e os seguintes parâmetros enviados como JSON:
+
 | Parâmetro     | Tipo      | Obrigatório | Valor padrão        |
 |---------------|-----------|-------------|---------------------|
 | original_url  | string    | sim         | -                   |
 | shorted_key   | string    | não         | aleatório           |
 | expires_at    | datetime  | não         | data atual + 7 dias |
+
 Essa rota retorna um JSON com os mesmos parâmetros mas com a data de expiração calculada se necessário (`expires_at`) e a URL encurtada completa.
 
 #### GET `/<shorted_key>`
