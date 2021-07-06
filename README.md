@@ -2,7 +2,7 @@
 
 Essa aplicação apresenta um serviço de encurtamento de URL. Quando uma URL encurtada é acessada, o cliente é redirecionado para a URL original. O sistema também contém uma tela simples para visualizar todas as URLs ativas.
 
-O sistema foi construído em Python com a biblioteca Flask e SQLAlchemy. 
+O sistema foi construído em Python com a biblioteca **[Flask](https://flask.palletsprojects.com/)** e **[SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/)**. 
 
 ## 1. Instalação
 ### 1.1 Pré-requisitos
