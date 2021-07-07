@@ -17,6 +17,14 @@ def post_short_url():
         'expires_at': fields.DateTime(required=False, missing=(datetime.now() + timedelta(days=7))),
     }, request)
     shorted_url = ShortUrl(**json)
+    there_is_key = ShortUrl.query.filter_by(shorted_key=json['shorted_key']).first()
+    if there_is_key:
+        if there_is_key.expires_at < datetime.now():
+            there_is_key.delete()
+
+        else:
+            abort(409, f"The shorted key `{json['shorted_key']}` already exists")
+
     shorted_url.save()
     return jsonify(shorted_url.to_json()), 201
     
