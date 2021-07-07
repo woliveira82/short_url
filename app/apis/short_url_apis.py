@@ -32,7 +32,7 @@ def get_short_key(shorted_key):
 
 
 @app.route('/short-urls', methods=['GET'])
-# @jwt_required()
+@jwt_required()
 def get_short_url():
     query = parser.parse({
         'page': fields.Int(required=False, missing=1),

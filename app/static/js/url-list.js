@@ -55,8 +55,7 @@ window.addEventListener('load', () => {
             method: 'GET',
             mode: 'cors',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                'Authorization': `Bearer ${storage.getItem('jwt')}`
             }
         }).then(response => {
             if (response.status == 200){
