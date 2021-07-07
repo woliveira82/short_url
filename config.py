@@ -5,3 +5,5 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://username:password@localhost/db_name'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 DOMAIN_BASE_URL = 'http://dns.io/'
 JWT_SECRET_KEY = 'change-this-key'
+CACHE_TYPE = 'SimpleCache'
+CACHE_DEFAULT_TIMEOUT = 300

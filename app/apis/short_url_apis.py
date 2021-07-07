@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from secrets import token_urlsafe
 
-from app import app, db
+from app import app, db, cache
 from app.models import ShortUrl
 from flask import abort, jsonify, redirect, request
 from flask_jwt_extended import jwt_required
@@ -22,6 +22,7 @@ def post_short_url():
     
 
 @app.route('/<shorted_key>', methods=['GET'])
+@cache.cached(timeout=60)
 def get_short_key(shorted_key):
     shorted_url = ShortUrl.query.filter_by(shorted_key=shorted_key).first_or_404()
     if shorted_url.expires_at < datetime.now():
