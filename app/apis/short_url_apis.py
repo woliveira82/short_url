@@ -21,7 +21,12 @@ def post_short_url():
     there_is_key = ShortUrl.query.filter_by(shorted_key=json['shorted_key']).first()
     if there_is_key:
         if there_is_key.expires_at >= datetime.now():
-            raise ResponseException(409, 'Shorted key already exists', {'shorted_key': json['shorted_key']})
+            data = {
+                'json': {
+                    'shorted_key': [ json['shorted_key'] ]
+                }
+            }
+            raise ResponseException(409, 'Shorted key already exists', data)
 
         there_is_key.delete()
 
