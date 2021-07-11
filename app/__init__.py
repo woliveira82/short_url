@@ -19,3 +19,9 @@ from app.view import *
 @app.errorhandler(ResponseException)
 def handle_exception(e):
     return e.response()
+
+
+@app.errorhandler(422)
+def handle_error_422(e):
+    data = e.data.get('messages', ['invalid request'])
+    return ResponseException(e.code, 'Unprocessable Entity', data).response()
