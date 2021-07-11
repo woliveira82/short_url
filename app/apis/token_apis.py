@@ -1,6 +1,7 @@
 from app import app
 from app.models import User
-from flask import abort, jsonify, request
+from app.util import ResponseException
+from flask import jsonify, request
 from flask_jwt_extended import create_access_token
 from webargs import fields
 from webargs.flaskparser import parser
@@ -14,7 +15,7 @@ def post_login():
     }, request)
     user = User.query.filter_by(**json).first()
     if not user:
-        abort(401)
+        raise ResponseException(401, 'The username or password is incorrect')
 
     access_token = create_access_token(identity=json['username'])
-    return jsonify(access_token=access_token)
+    return jsonify(access_token=access_token), 201

@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta
 from secrets import token_urlsafe
 
-from app import app, db, cache
+from app import app, cache, db
 from app.models import ShortUrl
+from app.util import ResponseException
 from flask import abort, jsonify, redirect, request
 from flask_jwt_extended import jwt_required
 from webargs import fields
@@ -19,11 +20,10 @@ def post_short_url():
     shorted_url = ShortUrl(**json)
     there_is_key = ShortUrl.query.filter_by(shorted_key=json['shorted_key']).first()
     if there_is_key:
-        if there_is_key.expires_at < datetime.now():
-            there_is_key.delete()
+        if there_is_key.expires_at >= datetime.now():
+            raise ResponseException(409, 'Shorted key already exists', {'shorted_key': json['shorted_key']})
 
-        else:
-            abort(409, f"The shorted key `{json['shorted_key']}` already exists")
+        there_is_key.delete()
 
     shorted_url.save()
     return jsonify(shorted_url.to_json()), 201
@@ -34,7 +34,6 @@ def post_short_url():
 def get_short_key(shorted_key):
     shorted_url = ShortUrl.query.filter_by(shorted_key=shorted_key).first_or_404()
     if shorted_url.expires_at < datetime.now():
-        shorted_url.delete()
         abort(404)
     
     return redirect(shorted_url.original_url, code=302)
