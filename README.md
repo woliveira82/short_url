@@ -42,6 +42,8 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://username:password@localhost/db_name'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 DOMAIN_BASE_URL = 'http://dns.io/'
 JWT_SECRET_KEY = 'change-this-key'
+CACHE_TYPE = 'SimpleCache'
+CACHE_DEFAULT_TIMEOUT = 300
 ```
 Como indicado, o banco está foi configurado para funcionar no mesmo servidor (*localhost*) que o sistema e com o nome de `db_name`. Modifique esses valores com o endereço e o nome do banco, respectivamente, para os valores utilizados por você.
 
@@ -54,6 +56,8 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://username:password@localhost/db_name'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 DOMAIN_BASE_URL = 'http://127.0.0.1:5000/'
 JWT_SECRET_KEY = 'change-this-key'
+CACHE_TYPE = 'SimpleCache'
+CACHE_DEFAULT_TIMEOUT = 300
 ```
 Após as configurações do banco de dados serem realizadas, você pode executar as migrações com o comando abaixo:
 ```bash
@@ -103,9 +107,9 @@ $ source venv/bin/activate
 ==================================== test session starts ====================================
 platform linux -- Python 3.8.2, pytest-6.2.4, py-1.10.0, pluggy-0.13.1
 rootdir: /path/to/short_url
-collected 1 item                                                                                                                                                                                     
+collected 4 items
 
-test/test_app.py .                                                                     [100%]
+test/test_app.py ....                                                                  [100%]
 
-===================================== 1 passed in 0.65s =====================================
+===================================== 1 passed in 0.85s =====================================
 ```
